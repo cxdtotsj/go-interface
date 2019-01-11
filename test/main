@@ -1,0 +1,93 @@
+// package main
+
+// import (
+// 	"encoding/json"
+// 	"fmt"
+// 	"go-interface/request"
+// 	"io/ioutil"
+// 	"net/url"
+// )
+
+// func main() {
+// 	api := "/user/login"
+// 	data := url.Values{
+// 		"email":    {"xdchenadmin@admin"},
+// 		"password": {"12345678"},
+// 	}
+// 	resp, _ := request.PostForm(api, data, nil)
+// 	// body, _ := ioutil.ReadAll(resp.Body)
+// 	defer resp.Body.Close()
+// 	conntent, _ := ioutil.ReadAll(resp.Body)
+// 	result := map[string]interface{}{}
+// 	json.Unmarshal(conntent, &result)
+// 	fmt.Println(string(conntent))
+
+// 	api2 := "/building/create"
+// 	// d2 := url.Values{
+// 	// 	"page":  {"1"},
+// 	// 	"limit": {"10"},
+// 	// }
+// 	// d2 := url.Values{}
+// 	// d3 := map[string]string{
+// 	// 	"building_id": "ci-124663839101825579",
+// 	// 	"layer_id":    "ci-124663885054620203",
+// 	// 	"model_type":  "P",
+// 	// 	"model_name":  "gotest",
+// 	// }
+// 	// for k, v := range d3 {
+// 	// 	d2.Add(k, v)
+// 	// }
+// 	// filename := `D:\Go_WorkSpace\src\go-interface\TPY.objr`
+// 	// d2 := `{
+// 	// 	"name": building_name,
+// 	// 	"loc": {
+// 	// 		"province": "上海市",
+// 	// 		"city": "上海市",
+// 	// 		"county": "静安区",
+// 	// 		"addr": "恒丰路329号"
+// 	// 	},
+// 	// 	"area": 100,
+// 	// 	"layer_num": 31,
+// 	// 	"underlayer_num": 3,
+// 	// 	"coord": {
+// 	// 		"altitude": 122,
+// 	// 		"latitude": 32,
+// 	// 		"longitude": 0,
+// 	// 		"angle":0
+// 	// 	}
+// 	// }`
+// 	type d3 struct {
+// 		Name          string            `json:"name"`
+// 		Loc           map[string]string `json:"loc"`
+// 		Area          int               `json:"area"`
+// 		LayerNum      int               `json:"layer_num"`
+// 		UnderLayerNum int               `json:"underlayer_num"`
+// 		Coord         map[string]int    `json:"coord"`
+// 	}
+// 	d4 := d3{
+// 		Name: "GOTEST3",
+// 		Loc: map[string]string{
+// 			"province": "上海市",
+// 			"city":     "上海市",
+// 			"county":   "静安区",
+// 			"addr":     "恒丰路329号",
+// 		},
+// 		Area:          100,
+// 		LayerNum:      31,
+// 		UnderLayerNum: 3,
+// 		Coord: map[string]int{
+// 			"altitude":  122,
+// 			"latitude":  32,
+// 			"longitude": 0,
+// 			"angle":     0,
+// 		},
+// 	}
+// 	header := map[string]string{"Authorization": result["token"].(string)}
+// 	resp2, err := request.PostJson(api2, d4, header)
+// 	if err != nil {
+// 		print(err)
+// 	}
+// 	body2, _ := ioutil.ReadAll(resp2.Body)
+// 	defer resp.Body.Close()
+// 	fmt.Println(string(body2))
+// }
