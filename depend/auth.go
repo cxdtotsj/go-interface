@@ -27,7 +27,7 @@ func superToken() (token string, err error) {
 
 // Auth return header of the Authorization
 func Auth(token string) map[string]string {
-	auth := map[string]string{}
+	auth := map[string]string{"id-prefix": "ci"}
 	if token == "" {
 		return nil
 	}
@@ -36,21 +36,21 @@ func Auth(token string) map[string]string {
 }
 
 // CorpAuth return CorpId and header of Auth
-func CorpAuth() (corpID string, auth map[string]string) {
+func CorpAuth() (corpID string, auth map[string]string, err error) {
 	id, token, err := corpToken()
 	if err != nil {
-		return "", nil
+		return "", nil, err
 	}
 	auth = Auth(token)
-	return id, auth
+	return id, auth, nil
 }
 
 // SuperAuth return header of Auth
-func SuperAuth() (auth map[string]string) {
+func SuperAuth() (auth map[string]string, err error) {
 	token, err := superToken()
 	if err != nil {
-		return nil
+		return nil, err
 	}
 	auth = Auth(token)
-	return auth
+	return auth, nil
 }
