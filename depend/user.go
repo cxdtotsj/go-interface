@@ -1,24 +1,29 @@
 package depend
 
 import (
-	"go-interface/info"
+	"go-interface/config"
 	"go-interface/request"
 
 	simplejson "github.com/bitly/go-simplejson"
 )
 
-// UserLogin a method of login
+// Login a method of login
 func Login(email, mobile, password string) (*simplejson.Json, error) {
-	api := "/user/login"
-	url := info.BaseURL + api
+	url := config.URL("/user/login")
 	req := request.NewRequest(nil)
 	req.Data = map[string]string{
 		"email":    email,
 		"mobile":   mobile,
 		"password": password,
 	}
-	resp, _ := req.Post(url)
-	defer resp.Body.Close()
+	resp, err := req.Post(url)
+	if err != nil {
+		return nil, err
+	}
 	j, err := resp.Json()
-	return j, err
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	return j, nil
 }
