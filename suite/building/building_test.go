@@ -14,6 +14,18 @@ var commonAuth, _ = depend.CommonAuth()
 var otherAuth, _ = depend.OtherAuth()
 
 func TestCreateBuilding(t *testing.T) {
+	loc := map[string]string{
+		"province": "上海市",
+		"city":     "上海市",
+		"county":   "静安区",
+		"addr":     "恒丰路329号",
+	}
+	coord := map[string]float64{
+		"altitude":  122,
+		"latitude":  32,
+		"longitude": 0,
+		"angle":     0,
+	}
 	var tests = []struct {
 		header     map[string]string
 		jdata      interface{}
@@ -21,8 +33,12 @@ func TestCreateBuilding(t *testing.T) {
 		id         string
 		code       float64
 	}{
-		{corpAuth, *newCreate(bName, nil, 0, 0, 0, nil), 401, "", 1400},
-		// {corpAuth, newCreate(bName, nil, 0, 0, 0, nil), 400, "", 1400},
+		{corpAuth, newCreate("", loc, 0, 0, 0, coord), 400, "", 1400},
+		{corpAuth, newCreate(bName, nil, 1000.53, 31, 3, coord), 401, "", 1400},
+		{corpAuth, newCreate(bName, loc, 0, 31, 3, coord), 400, "", 1400},
+		// {corpAuth, *newCreate("", nil, 0, 31, 0, nil), 400, "", 1400},
+		// {corpAuth, *newCreate("", nil, 0, 0, 3, nil), 400, "", 1400},
+		// {corpAuth, *newCreate("", nil, 0, 0, 3, coord), 400, "", 1400},
 	}
 	for _, test := range tests {
 		resp, err := createBuilding(test.jdata, test.header)

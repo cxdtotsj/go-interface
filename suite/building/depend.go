@@ -7,7 +7,7 @@ import (
 type create struct {
 	Name          string             `json:"name"`
 	Loc           map[string]string  `json:"loc"`
-	Area          int32              `json:"area"`
+	Area          float64            `json:"area"`
 	LayerNum      int32              `json:"layer_num"`
 	UnderLayerNum int32              `json:"underlayer_num"`
 	Coord         map[string]float64 `json:"coord"`
@@ -15,7 +15,7 @@ type create struct {
 
 var bName = "go随机建筑" + tools.RandInt()
 
-func newCreate(name string, loc map[string]string, area, layerNum, underlayerNum int32, coord map[string]float64) *create {
+func newCreate(name string, loc map[string]string, area float64, layerNum, underlayerNum int32, coord map[string]float64) *create {
 	return &create{
 		Name:          name,
 		Loc:           loc,
